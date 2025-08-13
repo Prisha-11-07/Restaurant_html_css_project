@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Payment Successful</title>
+<style>
+ body{background:#fff8ee;font-family:'Segoe UI',sans-serif;text-align:center;padding:2rem;}
+ table{margin:auto;border-collapse:collapse;width:300px;}
+ th,td{padding:0.5rem;border-bottom:1px solid #ccc;}
+ .total{font-weight:700;}
+ a.button{display:inline-block;margin-top:1.5rem;padding:0.7rem 1.5rem;border-radius:20px;background:#ff9800;color:#fff;text-decoration:none;}
+</style>
+</head>
+<body>
+<h1>✅ Payment Successful!</h1>
+<p>Thank you for dining with Namaste India.</p>
+<table id="bill-table">
+  <tr><th>Item</th><th>Qty</th><th>Price</th></tr>
+</table>
+<a href="index.html" class="button">Home</a>
+<script>
+  const q=new URLSearchParams(location.search);
+  const item=decodeURIComponent(q.get('item')), price=parseFloat(q.get('price')), qty=parseInt(q.get('qty'))||1;
+  const tot=price*qty;
+  document.getElementById('bill-table').innerHTML+=`<tr><td>${item}</td><td>${qty}</td><td>₹${price}</td></tr><tr class="total"><td>Total</td><td></td><td>₹${tot}</td></tr>`;
+</script>
+</body>
+</html>
