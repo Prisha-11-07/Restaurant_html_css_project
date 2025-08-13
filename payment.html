@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Payment | Namaste India</title>
+<style>
+ body{background:#fff8ee;font-family:'Segoe UI',sans-serif;display:flex;justify-content:center;align-items:center;padding:1rem;}
+ .container{background:#fff;padding:1.5rem;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);max-width:400px;width:100%;}
+ h1{text-align:center;color:#d84315;}
+ input,select{width:100%;padding:0.5rem;margin-bottom:1rem;border-radius:8px;border:1px solid #ccc;}
+ button{width:100%;padding:0.7rem;background:#388e3c;color:#fff;border:none;border-radius:8px;font-size:1em;}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Payment</h1>
+  <p id="order-summary"></p>
+  <form id="payment-form">
+    <input type="text" placeholder="Name on Card" required>
+    <input type="email" placeholder="Email" required>
+    <input type="text" placeholder="Card Number" required>
+    <select required>
+      <option value="">Expiry Month</option><option>01</option><option>02</option>
+    </select>
+    <select required id="expiry-year"></select>
+    <input type="password" placeholder="CVV" required>
+    <button type="submit">Pay Now</button>
+  </form>
+</div>
+<script>
+  const yearSel=document.getElementById('expiry-year');
+  const cy=new Date().getFullYear(); for(let i=0;i<10;i++){yearSel.innerHTML+=`<option>${cy+i}</option>`;}
+  const p=new URLSearchParams(location.search), item=p.get('item'),price=p.get('price');
+  document.getElementById('order-summary').textContent=`${decodeURIComponent(item)} - ₹${price}`;
+  document.getElementById('payment-form').addEventListener('submit',e=>{
+    e.preventDefault();
+    window.location=`payment_success.html?item=${encodeURIComponent(item)}&price=${price}&qty=1`;
+  });
+</script>
+</body>
+</html>
